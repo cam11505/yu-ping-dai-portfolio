@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./projects.css";
+import "./steins.css";
 
 const [repositoryOwner = "", repositoryName = ""] =
   process.env.GITHUB_REPOSITORY?.split("/") ?? [];
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "dark",
-  themeColor: "#07110f",
+  themeColor: "#090909",
   width: "device-width",
   initialScale: 1,
 };
