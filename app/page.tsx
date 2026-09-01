@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { capabilities, education, experiences, profile } from "../data/profile";
+import { capabilities, education, experiences, profile, projects } from "../data/profile";
 
 const navItems = [
   { id: "about", label: "ABOUT" },
   { id: "experience", label: "EXPERIENCE" },
-  { id: "education", label: "EDUCATION" },
+  { id: "projects", label: "PROJECTS" },
+  { id: "education", label: "ENGINEERING" },
 ] as const;
 
 export default function Home() {
@@ -66,8 +67,8 @@ export default function Home() {
           ))}
         </nav>
 
-        <a className="header-cta" href="#experience">
-          VIEW CAREER <span aria-hidden="true">↘</span>
+        <a className="header-cta" href="#projects">
+          VIEW WORK <span aria-hidden="true">↘</span>
         </a>
       </header>
 
@@ -93,8 +94,8 @@ export default function Home() {
               <a className="primary-action" href="#experience">
                 EXPLORE EXPERIENCE <span aria-hidden="true">↓</span>
               </a>
-              <a className="text-action" href="#education">
-                VIEW ENGINEERING DNA <span aria-hidden="true">↗</span>
+              <a className="text-action" href="#projects">
+                VIEW ENGINEERING WORK <span aria-hidden="true">↗</span>
               </a>
             </div>
 
@@ -176,10 +177,71 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section-shell projects-section" id="projects">
+          <header className="section-heading">
+            <div>
+              <span className="section-number">02</span>
+              <p>ENGINEERING WORK</p>
+            </div>
+            <h2>專案實作<span>。</span></h2>
+            <p>把工程方法延伸到自己的工具：先定義問題邊界，再建立可驗證、可維護、可交付的系統。</p>
+          </header>
+
+          <div className="projects-grid">
+            {projects.map((project) => (
+              <article className="project-card" key={project.repo}>
+                <div className="project-topline">
+                  <span>PROJECT / {project.index}</span>
+                  <b>{project.status}</b>
+                </div>
+
+                <div className="project-title">
+                  <p>{project.repo}</p>
+                  <h3>{project.name}</h3>
+                </div>
+
+                <dl className="project-flow">
+                  <div className="project-step">
+                    <dt>PROBLEM</dt>
+                    <dd>{project.problem}</dd>
+                  </div>
+                  <div className="project-step">
+                    <dt>APPROACH</dt>
+                    <dd>{project.approach}</dd>
+                  </div>
+                  <div className="project-step">
+                    <dt>STACK</dt>
+                    <dd>
+                      <ul className="project-stack" aria-label={`${project.name} 技術棧`}>
+                        {project.stack.map((item) => <li key={item}>{item}</li>)}
+                      </ul>
+                    </dd>
+                  </div>
+                  <div className="project-step">
+                    <dt>RESULT</dt>
+                    <dd>{project.result}</dd>
+                  </div>
+                </dl>
+
+                <a
+                  className="project-link"
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`在 GitHub 開啟 ${project.name}`}
+                >
+                  <span>OPEN GITHUB REPOSITORY</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="section-shell engineering-section" id="education">
           <header className="section-heading compact">
             <div>
-              <span className="section-number">02</span>
+              <span className="section-number">03</span>
               <p>ENGINEERING DNA</p>
             </div>
             <h2>學歷與技術<span>。</span></h2>
