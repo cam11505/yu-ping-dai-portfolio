@@ -10,8 +10,15 @@ const navItems = [
   { id: "education", label: "ENGINEERING" },
 ] as const;
 
+const sectionSignals: Record<(typeof navItems)[number]["id"], string> = {
+  about: "0.782041",
+  experience: "0.419337",
+  projects: "0.663204",
+  education: "0.914552",
+};
+
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState<(typeof navItems)[number]["id"]>("about");
 
   useEffect(() => {
     const sections = navItems
@@ -22,7 +29,9 @@ export default function Home() {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveSection(visible.target.id);
+        if (visible && navItems.some(({ id }) => id === visible.target.id)) {
+          setActiveSection(visible.target.id as (typeof navItems)[number]["id"]);
+        }
       },
       { rootMargin: "-25% 0px -60%", threshold: [0.1, 0.3, 0.6] },
     );
@@ -45,13 +54,14 @@ export default function Home() {
   return (
     <>
       <div className="ambient-grid" aria-hidden="true" />
+      <div className="crt-vignette" aria-hidden="true" />
 
       <header className="site-header">
         <a className="brand" href="#about" aria-label="回到首頁">
           <span className="brand-mark">DP</span>
           <span className="brand-copy">
-            <strong>DAI / ENGINEERING</strong>
-            <small>PORTFOLIO SYSTEM</small>
+            <strong>DAI / APPLIED SYSTEMS</strong>
+            <small>ENGINEERING RECORD</small>
           </span>
         </a>
 
@@ -68,19 +78,24 @@ export default function Home() {
         </nav>
 
         <a className="header-cta" href="#projects">
-          VIEW WORK <span aria-hidden="true">↘</span>
+          ACCESS WORK LOG <span aria-hidden="true">↘</span>
         </a>
       </header>
+
+      <div className="header-readout" aria-hidden="true">
+        <small>OBSERVATION TRACE / {activeSection.toUpperCase()}</small>
+        <strong>{sectionSignals[activeSection]}</strong>
+      </div>
 
       <main>
         <section className="hero" id="about">
           <div className="hero-copy">
             <div className="eyebrow">
-              <span className="live-status"><i /> SYSTEM ONLINE</span>
+              <span className="live-status"><i /> LAB NODE / ONLINE</span>
               <span>{profile.location}</span>
             </div>
 
-            <p className="hero-kicker">ENGINEERING CLARITY FROM SIGNAL TO SOLUTION</p>
+            <p className="hero-kicker">OBSERVE / ISOLATE / VERIFY / RESOLVE</p>
             <h1>
               <span>{profile.name}</span>
               <em>{profile.englishName}</em>
@@ -92,10 +107,10 @@ export default function Home() {
 
             <div className="hero-actions">
               <a className="primary-action" href="#experience">
-                EXPLORE EXPERIENCE <span aria-hidden="true">↓</span>
+                ACCESS CAREER LOG <span aria-hidden="true">↓</span>
               </a>
               <a className="text-action" href="#projects">
-                VIEW ENGINEERING WORK <span aria-hidden="true">↗</span>
+                OPEN EXPERIMENT ARCHIVE <span aria-hidden="true">↗</span>
               </a>
             </div>
 
@@ -109,45 +124,50 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="signal-panel" aria-label="目前職務">
+          <aside className="signal-panel" aria-label="工程觀測資訊">
             <div className="panel-topline">
-              <span>CURRENT NODE</span>
-              <span>01 / ACTIVE</span>
+              <span>DIVERGENCE / ENGINEERING SIGNAL</span>
+              <span>NODE 01 / ACTIVE</span>
             </div>
-            <div className="chip-diagram" aria-hidden="true">
-              <div className="chip-core">
-                <span>FAE</span>
-                <small>AUTO IC</small>
+
+            <div className="divergence-stage" aria-label={`目前觀測訊號 ${sectionSignals[activeSection]}`}>
+              <div className="divergence-display">
+                <span>OBSERVATION VALUE</span>
+                <div className="divergence-number">
+                  {sectionSignals[activeSection]}
+                  <i aria-hidden="true" />
+                </div>
+                <p className="divergence-caption">CALIBRATED FOR PORTFOLIO NAVIGATION / NON-PHYSICAL REFERENCE</p>
               </div>
-              <span className="trace trace-a" />
-              <span className="trace trace-b" />
-              <span className="trace trace-c" />
-              <span className="trace trace-d" />
+              <div className="readout-scale" aria-hidden="true">
+                {Array.from({ length: 16 }, (_, index) => <i key={index} />)}
+              </div>
             </div>
+
             <div className="current-role">
-              <span>NOW OPERATING AT</span>
+              <span>CURRENT OBSERVATION POINT</span>
               <h2>{profile.company}</h2>
               <p>車用 IC 部門 · FIELD APPLICATION ENGINEERING</p>
             </div>
             <div className="panel-readout">
-              <span><b>INPUT</b> CUSTOMER SIGNALS</span>
-              <span><b>OUTPUT</b> VERIFIED SOLUTIONS</span>
+              <span><b>INPUT</b> FIELD / CUSTOMER SIGNALS</span>
+              <span><b>OUTPUT</b> VERIFIED ROOT CAUSE</span>
             </div>
           </aside>
 
           <div className="scroll-cue" aria-hidden="true">
-            <span>SCROLL TO TRACE</span><i />
+            <span>TRACE THE RECORD</span><i />
           </div>
         </section>
 
-        <section className="section-shell experience-section" id="experience">
+        <section className="section-shell experience-section" id="experience" data-lab-code="LOG-01">
           <header className="section-heading">
             <div>
               <span className="section-number">01</span>
-              <p>CAREER SIGNAL PATH</p>
+              <p>CAREER WORLD-LINE TRACE</p>
             </div>
-            <h2>工作經歷<span>。</span></h2>
-            <p>從平台軟體到 IC 應用支援，持續把複雜系統問題轉成團隊能共同處理的工程語言。</p>
+            <h2>職涯記錄<span>。</span></h2>
+            <p>沿著嵌入式平台、SDK 與 IC 應用支援的軌跡，把每一個模糊現象收斂成可以重現、量測與驗證的工程問題。</p>
           </header>
 
           <div className="timeline">
@@ -161,7 +181,7 @@ export default function Home() {
                 </div>
                 <div className="experience-meta">
                   <span>{experience.period}</span>
-                  {experience.current && <b><i /> LIVE ROLE</b>}
+                  {experience.current && <b><i /> OBSERVING NOW</b>}
                 </div>
                 <div className="experience-title">
                   <p>{experience.team}</p>
@@ -177,21 +197,21 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell projects-section" id="projects">
+        <section className="section-shell projects-section" id="projects" data-lab-code="EXP-02">
           <header className="section-heading">
             <div>
               <span className="section-number">02</span>
-              <p>ENGINEERING WORK</p>
+              <p>EXPERIMENT ARCHIVE</p>
             </div>
-            <h2>專案實作<span>。</span></h2>
-            <p>把工程方法延伸到自己的工具：先定義問題邊界，再建立可驗證、可維護、可交付的系統。</p>
+            <h2>工程實驗<span>。</span></h2>
+            <p>把個人專案視為可重複驗證的工程實驗：先定義 Problem，再留下 Approach、Stack 與可交付的 Result。</p>
           </header>
 
           <div className="projects-grid">
             {projects.map((project) => (
               <article className="project-card" key={project.repo}>
                 <div className="project-topline">
-                  <span>PROJECT / {project.index}</span>
+                  <span>DEVICE / {project.index}</span>
                   <b>{project.status}</b>
                 </div>
 
@@ -230,7 +250,7 @@ export default function Home() {
                   rel="noreferrer"
                   aria-label={`在 GitHub 開啟 ${project.name}`}
                 >
-                  <span>OPEN GITHUB REPOSITORY</span>
+                  <span>ACCESS SOURCE RECORD</span>
                   <span aria-hidden="true">↗</span>
                 </a>
               </article>
@@ -238,18 +258,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section-shell engineering-section" id="education">
+        <section className="section-shell engineering-section" id="education" data-lab-code="DATA-03">
           <header className="section-heading compact">
             <div>
               <span className="section-number">03</span>
-              <p>ENGINEERING DNA</p>
+              <p>ENGINEERING ARCHIVE</p>
             </div>
-            <h2>學歷與技術<span>。</span></h2>
+            <h2>工程基底<span>。</span></h2>
           </header>
 
           <div className="engineering-grid">
             <div className="education-list">
-              <div className="subsection-label"><span>EDUCATION</span><b>02 RECORDS</b></div>
+              <div className="subsection-label"><span>EDUCATION RECORDS</span><b>02 ENTRIES</b></div>
               {education.map((item) => (
                 <article className="education-card" key={item.code}>
                   <span className="degree-code">{item.code}</span>
@@ -284,10 +304,10 @@ export default function Home() {
       <footer>
         <div>
           <span className="brand-mark">DP</span>
-          <p><strong>DAI / ENGINEERING PORTFOLIO</strong><br />Designed for clear signals and durable systems.</p>
+          <p><strong>DAI / ENGINEERING RECORD</strong><br />Observe carefully. Reduce uncertainty. Verify the result.</p>
         </div>
-        <p>BUILD STATUS <span><i /> READY FOR GITHUB PAGES</span></p>
-        <a href="#about">BACK TO TOP ↑</a>
+        <p>ARCHIVE STATUS <span><i /> ONLINE / STABLE</span></p>
+        <a href="#about">RETURN TO NODE 00 ↑</a>
       </footer>
     </>
   );

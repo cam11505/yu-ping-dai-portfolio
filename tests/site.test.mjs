@@ -13,6 +13,9 @@ test("exports a GitHub Pages-ready static site", async () => {
   assert.match(html, /AUTOMOTIVE IC/);
   assert.match(html, /SITE RESCUE/);
   assert.match(html, /LOCAL DOCUMENT CONVERTER/);
+  assert.match(html, /DIVERGENCE \/ ENGINEERING SIGNAL/);
+  assert.match(html, /EXPERIMENT ARCHIVE/);
+  assert.match(html, /ACCESS SOURCE RECORD/);
   assert.match(html, /github\.com\/cam11505\/website_trans/);
   assert.match(html, /github\.com\/cam11505\/local-document-converter/);
   assert.doesNotMatch(html, /0928|台南市|gmail\.com|求職條件|自傳/);
