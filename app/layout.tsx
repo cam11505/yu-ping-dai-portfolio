@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./projects.css";
 
 const [repositoryOwner = "", repositoryName = ""] =
   process.env.GITHUB_REPOSITORY?.split("/") ?? [];
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "戴育凭｜FAE Engineer · Automotive IC",
   description:
-    "戴育凭的工程履歷網站：凌陽科技 SunPlus 車用 IC 部門 FAE 工程師，具嵌入式系統、IC SDK 與客戶技術支援經驗。",
+    "戴育凭的工程履歷網站：凌陽科技 SunPlus 車用 IC 部門 FAE 工程師，具嵌入式系統、IC SDK、客戶技術支援與個人工程專案經驗。",
   openGraph: {
     title: "戴育凭｜FAE Engineer · Automotive IC",
     description: "Engineering clarity from signal to solution.",
