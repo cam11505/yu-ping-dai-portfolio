@@ -11,6 +11,10 @@ test("exports a GitHub Pages-ready static site", async () => {
   assert.match(html, /戴育凭/);
   assert.match(html, /凌陽科技/);
   assert.match(html, /AUTOMOTIVE IC/);
+  assert.match(html, /SITE RESCUE/);
+  assert.match(html, /LOCAL DOCUMENT CONVERTER/);
+  assert.match(html, /github\.com\/cam11505\/website_trans/);
+  assert.match(html, /github\.com\/cam11505\/local-document-converter/);
   assert.doesNotMatch(html, /0928|台南市|gmail\.com|求職條件|自傳/);
 });
 
@@ -23,6 +27,8 @@ test("keeps resume content separate and privacy-safe", async () => {
 
   assert.match(profile, /SUNPLUS/);
   assert.match(profile, /國立虎尾科技大學/);
+  assert.match(profile, /website_trans/);
+  assert.match(profile, /local-document-converter/);
   assert.doesNotMatch(profile, /手機|電話|地址|E-mail|email/i);
   assert.match(workflow, /actions\/deploy-pages/);
   assert.match(workflow, /path: out/);
