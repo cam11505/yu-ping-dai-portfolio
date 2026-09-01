@@ -66,6 +66,37 @@ export const experiences = [
   },
 ] as const;
 
+export const projects = [
+  {
+    index: "01",
+    name: "SITE RESCUE",
+    repo: "website_trans",
+    status: "V0.1.0 / PUBLIC",
+    problem:
+      "託管式網站平台停止服務或變得不可存取時，使用者缺乏可驗證、可攜且不綁定單一平台的網站救援路徑。",
+    approach:
+      "以 source adapter → normalized schema → exporter 的平台中立邊界設計 CLI，加入受限 crawler、資產雜湊與去重、redirect handoff、離線驗證與 rescue bundle integrity。",
+    stack: ["TypeScript", "Node.js", "pnpm", "Vitest", "CLI", "GitHub Actions"],
+    result:
+      "完成可公開使用的 v0.1.0：支援 Weebly 與 generic HTML detection、capture、static export、report、verify、preview 與完整 rescue bundle 驗證。",
+    github: "https://github.com/cam11505/website_trans",
+  },
+  {
+    index: "02",
+    name: "LOCAL DOCUMENT CONVERTER",
+    repo: "local-document-converter",
+    status: "V0.1.0 / LOCAL-FIRST",
+    problem:
+      "PDF、DOCX、XLSX、Markdown 與影像文件格式各自有不同解析方式，企業或離線環境又不適合把文件內容交給雲端服務處理。",
+    approach:
+      "以穩定的 DocumentIR 作為中介層，將 parser / exporter / conversion service 解耦；CLI 明確處理設定優先序、no-overwrite、atomic replace 與 optional OCR fallback。",
+    stack: ["Python 3.12", "Docling", "Pydantic", "openpyxl", "python-docx", "Typer"],
+    result:
+      "建立可用的 Markdown、Excel、Docling parsing 與 Markdown / JSON / DOCX export 垂直切片，並保留 PaddleOCR 作為可選 fallback。",
+    github: "https://github.com/cam11505/local-document-converter",
+  },
+] as const;
+
 export const education = [
   {
     degree: "資訊工程系 · 碩士",
